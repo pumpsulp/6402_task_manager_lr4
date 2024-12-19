@@ -11,7 +11,7 @@ COPY pyproject.toml poetry.lock ./
 RUN pip install poetry && poetry install --no-root
 
 # 5. Копируем все файлы приложения в контейнер
-COPY . .
+COPY app .
 
 # 6. Команда запуска FastAPI приложения через Uvicorn
 CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
