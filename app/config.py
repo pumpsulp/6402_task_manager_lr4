@@ -35,7 +35,7 @@ class Settings(BaseSettings):
         ).unicode_string()
     
     class Config:
-        env_file = '.env'
+        env_file = 'example.env'
 
 
 settings = Settings()
