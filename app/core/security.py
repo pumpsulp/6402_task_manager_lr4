@@ -39,3 +39,25 @@ def verify_password(plain_password, hashed_password):
     :return:
     """
     return pwd_context.verify(plain_password, hashed_password)
+
+
+async def create_jwt_token(data: Dict[str, Union[str, int, datetime]]) -> str:
+    """
+    Создание JWT-токена
+    :param data: данные JWT
+    :return: JWT-токен
+    """
+    to_encode = data.copy()
+    expire = datetime.now() + ACCESS_TOKEN_EXPIRE
+    to_encode.update({"exp": expire})
+    token = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return token
+
+
+def decode_jwt_token(token: str) -> dict:
+    """
+    Декодирование JWT-токена, используя SECRET_KEY и ALGORITHM.
+    :param token: JWT-токен
+    """
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    return payload
