@@ -121,3 +121,12 @@ async def get_current_user_id(request: Request) -> int:
         return user_id
     except Exception as e:
         raise HTTPException(status_code=401, detail=str(e))
+
+
+async def invalidate_token(response: Response):
+    """
+    Инвалидизация JWT-токена
+    :param response: HTTP-ответ
+    :return:
+    """
+    response.delete_cookie("access_token")
